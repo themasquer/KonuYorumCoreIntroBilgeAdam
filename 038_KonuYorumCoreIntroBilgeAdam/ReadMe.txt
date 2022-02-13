@@ -1,4 +1,6 @@
-﻿﻿1) NuGet'ten Microsoft.EntityFrameworkCore.SqlServer ve Microsoft.EntityFrameworkCore.Tools paketleri indirilir.
+﻿NOT: Bu örnek Microsoft Edge tarayıcısında düzgün çalışmaktadır.﻿
+
+1) NuGet'ten Microsoft.EntityFrameworkCore.SqlServer ve Microsoft.EntityFrameworkCore.Tools paketleri indirilir.
 2) Package Manager Console'da 
 tablolara ulaşmak için oluşturulacak DbSet'lerin sonuna İngilizce çoğulluk için 's' eklenmesi isteniyorsa
 Scaffold-DbContext "Server=.\SQLEXPRESS;Database=BA_KonuYorumCore;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir "DataAccess"
