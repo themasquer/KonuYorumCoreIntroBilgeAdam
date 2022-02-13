@@ -4,6 +4,12 @@
     ViewData["Title"] = "Create";
 }
 
+@if (ViewBag.Mesaj != null)
+{
+    @*@ViewData["Mesaj"].ToString()*@
+    @ViewBag.Mesaj.ToString()
+}
+
 <h1>Create</h1>
 
 <h4>Konu</h4>

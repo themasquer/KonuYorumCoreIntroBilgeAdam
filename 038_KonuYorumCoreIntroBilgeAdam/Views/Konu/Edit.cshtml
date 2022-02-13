@@ -4,6 +4,11 @@
     ViewData["Title"] = "Edit";
 }
 
+@if (ViewData["Mesaj"] != null)
+{
+    @ViewData["Mesaj"].ToString()
+}
+
 <h1>Edit</h1>
 
 <h4>Konu</h4>

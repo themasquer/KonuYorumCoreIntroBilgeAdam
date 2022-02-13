@@ -4,6 +4,11 @@
     ViewData["Title"] = "Index";
 }
 
+@if (TempData["Mesaj"] != null)
+{
+    @TempData["Mesaj"].ToString()
+}
+
 <h1>Index</h1>
 
 <p>

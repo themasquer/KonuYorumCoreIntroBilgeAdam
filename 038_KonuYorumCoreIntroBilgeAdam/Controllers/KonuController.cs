@@ -1,5 +1,6 @@
 ﻿using _038_KonuYorumCoreIntroBilgeAdam.DataAccess;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace _038_KonuYorumCoreIntroBilgeAdam.Controllers
 {
@@ -28,6 +29,15 @@ namespace _038_KonuYorumCoreIntroBilgeAdam.Controllers
         [HttpPost] // sunucuya bir form veya başka bir yol ile veri gönderiliyorsa mutlaka HttpPost yazılmalıdır
         public IActionResult Create(Konu konu)
         {
+            if (string.IsNullOrWhiteSpace(konu.Baslik))
+            {
+                // ViewBag (özellik) ile ViewData (index) birbirleri yerine aynı özellik ve index adları üzerinden kullanılabilir 
+
+                //ViewData["Mesaj"] = "Başlık boş girilemez!";
+                ViewBag.Mesaj = "Başlık boş girilemez!";
+
+                return View(konu);
+            }
             _db.Konu.Add(konu);
             _db.SaveChanges();
             return RedirectToAction("Index");
@@ -58,8 +68,43 @@ namespace _038_KonuYorumCoreIntroBilgeAdam.Controllers
         [HttpPost] // sunucuya bir form veya başka bir yol ile veri gönderiliyorsa mutlaka HttpPost yazılmalıdır
         public IActionResult Edit(Konu konu)
         {
+            if (string.IsNullOrWhiteSpace(konu.Baslik))
+            {
+                ViewData["Mesaj"] = "Başlık boş girilemez!";
+                return View(konu);
+            }
             _db.Konu.Update(konu);
             _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Delete(int id)
+        {
+            // konu verileriyle birlikte Include kullanarak ilişkili yorum verileri de çekilir
+            // eager loading: ihtiyaca göre yükleme, Entity Framework Core'da kullanılır
+            // lazy loading: entity framework'ün otomatik olarak ilişkili verileri yüklemesi, Include kullanılmasına gerek yoktur
+            Konu konu = _db.Konu.Include(k => k.Yorum).SingleOrDefault(k => k.Id == id);
+
+            // 1. yöntem: konu ile birlikte ilişkili yorum kayıtlarının da silinmesi:
+            //if (konu.Yorum != null && konu.Yorum.Count > 0) // yorum kayıtları doluysa
+            //{
+            //    foreach (Yorum yorum in konu.Yorum)
+            //    {
+            //        _db.Yorum.Remove(yorum);
+            //    }
+            //}
+            //_db.Yorum.RemoveRange(konu.Yorum);
+
+            // 2. yöntem: konunun ilişkili yorum kayıtları varsa uyarı verilmesi ve silinme işleminin yapılmaması:
+            if (konu.Yorum != null && konu.Yorum.Count > 0)
+            {
+                TempData["Mesaj"] = "Silinmek istenen konu ile ilişkili yorum kayıtları bulunmaktadır!";
+            }
+            else
+            {
+                _db.Konu.Remove(konu);
+                _db.SaveChanges();
+            }
             return RedirectToAction("Index");
         }
     }
