@@ -24,10 +24,7 @@ namespace _038_KonuYorumCoreIntroBilgeAdam.DataAccess
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-
-                //optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=BA_KonuYorumCore;user id=sa;password=sa;");
                 optionsBuilder.UseSqlServer("Server=.;Database=BA_KonuYorumCore;user id=sa;password=123;");
-
             }
         }
 
@@ -43,8 +40,6 @@ namespace _038_KonuYorumCoreIntroBilgeAdam.DataAccess
                     .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false);
-
-                entity.Property(e => e.Tarih).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<Yorum>(entity =>
@@ -53,8 +48,6 @@ namespace _038_KonuYorumCoreIntroBilgeAdam.DataAccess
                     .IsRequired()
                     .HasMaxLength(500)
                     .IsUnicode(false);
-
-                entity.Property(e => e.Tarih).HasColumnType("datetime");
 
                 entity.Property(e => e.Yorumcu)
                     .IsRequired()
