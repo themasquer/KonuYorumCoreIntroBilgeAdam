@@ -25,4 +25,4 @@ Proje geliştirme aşamaları:
 1.2) Details Action -> Konu detayının (model) context üzerinden Details View'ına gönderilmesi ve Details View'ının oluşturulması (View scaffolding)
 1.3) Create Action -> HttpGet ve HttpPost action method'ları, Create View'ının oluşturulması (View scaffolding), Create View'ındaki form verilerinin Create Post action'ına model olarak gönderilmesi ve veritabanında yeni kayıt oluşturulması, ViewBag ile ViewData kullanımı
 1.4) Edit Action -> LINQ Find, SingleOrDefault, FirstOrDefault ve LastOrDefault methodları
-1.5) Delete Action -> LINQ Include methodu ve veritabanında ilişkili kayıtların yönetilmesi
+1.5) Delete Action -> LINQ Include methodu ve veritabanında ilişkili kayıtların yönetilmesi, TempData kullanımı

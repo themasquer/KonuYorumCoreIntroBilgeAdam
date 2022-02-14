@@ -98,6 +98,7 @@ namespace _038_KonuYorumCoreIntroBilgeAdam.Controllers
             // 2. yöntem: konunun ilişkili yorum kayıtları varsa uyarı verilmesi ve silinme işleminin yapılmaması:
             if (konu.Yorum != null && konu.Yorum.Count > 0)
             {
+                // Eğer view dönmek yerine başka bir aksiyona yönlendirme yapılıyorsa TempData ile veriler yönlendirilen aksiyonun view'ına taşınmalıdır
                 TempData["Mesaj"] = "Silinmek istenen konu ile ilişkili yorum kayıtları bulunmaktadır!";
             }
             else
