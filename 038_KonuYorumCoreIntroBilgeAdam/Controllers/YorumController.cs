@@ -46,21 +46,25 @@ namespace _038_KonuYorumCoreIntroBilgeAdam.Controllers
             if (string.IsNullOrWhiteSpace(yorum.Icerik))
             {
                 ViewBag.Mesaj = "İçerik boş girilemez!";
+                ViewBag.KonuId = new SelectList(_db.Konu.OrderBy(k => k.Baslik).ToList(), "Id", "Baslik", yorum.KonuId);
                 return View(yorum);
             }
             if (yorum.Icerik.Length > 500)
             {
                 ViewBag.Mesaj = "İçerik en fazla 500 karakter olmalıdır!";
+                ViewBag.KonuId = new SelectList(_db.Konu.OrderBy(k => k.Baslik).ToList(), "Id", "Baslik", yorum.KonuId);
                 return View(yorum);
             }
             if (string.IsNullOrWhiteSpace(yorum.Yorumcu))
             {
                 ViewBag.Mesaj = "Yorumcu boş girilemez!";
+                ViewBag.KonuId = new SelectList(_db.Konu.OrderBy(k => k.Baslik).ToList(), "Id", "Baslik", yorum.KonuId);
                 return View(yorum);
             }
             if (yorum.Yorumcu.Length > 50)
             {
                 ViewBag.Mesaj = "Yorumcu en fazla 50 karakter olmalıdır!";
+                ViewBag.KonuId = new SelectList(_db.Konu.OrderBy(k => k.Baslik).ToList(), "Id", "Baslik", yorum.KonuId);
                 return View(yorum);
             }
 
@@ -71,6 +75,7 @@ namespace _038_KonuYorumCoreIntroBilgeAdam.Controllers
                 if (!(yorum.Puan.Value >= 1 && yorum.Puan.Value <= 5))
                 {
                     ViewBag.Mesaj = "Puan 1 ile 5 arasında olmalıdır!";
+                    ViewBag.KonuId = new SelectList(_db.Konu.OrderBy(k => k.Baslik).ToList(), "Id", "Baslik", yorum.KonuId);
                     return View(yorum);
                 }
             }
