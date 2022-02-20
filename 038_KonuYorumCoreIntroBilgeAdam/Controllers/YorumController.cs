@@ -1,5 +1,6 @@
 ﻿using _038_KonuYorumCoreIntroBilgeAdam.DataAccess;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace _038_KonuYorumCoreIntroBilgeAdam.Controllers
@@ -30,7 +31,53 @@ namespace _038_KonuYorumCoreIntroBilgeAdam.Controllers
 
         public IActionResult Create()
         {
+            List<Konu> konular = _db.Konu.OrderBy(konu => konu.Baslik).ToList();
+
+            //ViewBag.KonuId = new SelectList(konular, "Id", "Baslik");
+            ViewData["KonuId"] = new SelectList(konular, "Id", "Baslik"); // SelectList -> DropDownList, MultiSelectList -> ListBox
+            // ViewBag ile ViewData birbirlerinin yerine kullanılabilir, sadece yazımları farklıdır.
+
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Yorum yorum)
+        {
+            if (string.IsNullOrWhiteSpace(yorum.Icerik))
+            {
+                ViewBag.Mesaj = "İçerik boş girilemez!";
+                return View(yorum);
+            }
+            if (yorum.Icerik.Length > 500)
+            {
+                ViewBag.Mesaj = "İçerik en fazla 500 karakter olmalıdır!";
+                return View(yorum);
+            }
+            if (string.IsNullOrWhiteSpace(yorum.Yorumcu))
+            {
+                ViewBag.Mesaj = "Yorumcu boş girilemez!";
+                return View(yorum);
+            }
+            if (yorum.Yorumcu.Length > 50)
+            {
+                ViewBag.Mesaj = "Yorumcu en fazla 50 karakter olmalıdır!";
+                return View(yorum);
+            }
+
+            //if (yorum.Puan != null)
+            if (yorum.Puan.HasValue)
+            {
+                //if (yorum.Puan.Value > 5 || yorum.Puan.Value < 1)
+                if (!(yorum.Puan.Value >= 1 && yorum.Puan.Value <= 5))
+                {
+                    ViewBag.Mesaj = "Puan 1 ile 5 arasında olmalıdır!";
+                    return View(yorum);
+                }
+            }
+
+            _db.Yorum.Add(yorum);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }

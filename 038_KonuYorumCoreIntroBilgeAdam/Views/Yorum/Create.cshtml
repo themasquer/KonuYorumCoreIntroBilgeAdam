@@ -4,6 +4,11 @@
     ViewData["Title"] = "Create";
 }
 
+@if (ViewBag.Mesaj != null)
+{
+    @ViewBag.Mesaj.ToString()
+}
+
 <h1>Create</h1>
 
 <h4>Yorum</h4>
