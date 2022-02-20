@@ -27,5 +27,10 @@ namespace _038_KonuYorumCoreIntroBilgeAdam.Controllers
             Yorum yorum = _db.Yorum.Include(yorum => yorum.Konu).SingleOrDefault(yorum => yorum.Id == id);
             return View(yorum);
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }
