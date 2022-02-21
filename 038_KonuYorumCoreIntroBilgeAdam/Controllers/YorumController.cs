@@ -15,7 +15,7 @@ namespace _038_KonuYorumCoreIntroBilgeAdam.Controllers
             //List<Yorum> yorumlar = _db.Yorum.OrderByDescending(yorum => yorum.Puan).ToList(); // OrderBy, OrderByDescending
             // Bu şekilde ilişkili Konu kayıtları boş gelir.
 
-            // select * from Yorum inner join Konu on Yorum.KonuId = Konu.Id order by Puan desc, Yorumcu
+            // select * from Yorum left outer join Konu on Yorum.KonuId = Konu.Id order by Puan desc, Yorumcu
             List<Yorum> yorumlar = _db.Yorum.Include(yorum => yorum.Konu).OrderByDescending(yorum => yorum.Puan).ThenBy(yorum => yorum.Yorumcu).ToList(); // ThenBy, ThenByDescending
 
             // Bir OrderBy kullanıldıktan sonra diğerlerinin hepsi ThenBy olmalıdır.
@@ -35,7 +35,6 @@ namespace _038_KonuYorumCoreIntroBilgeAdam.Controllers
 
             //ViewBag.KonuId = new SelectList(konular, "Id", "Baslik");
             ViewData["KonuId"] = new SelectList(konular, "Id", "Baslik"); // SelectList -> DropDownList, MultiSelectList -> ListBox
-            // ViewBag ile ViewData birbirlerinin yerine kullanılabilir, sadece yazımları farklıdır.
 
             return View();
         }
