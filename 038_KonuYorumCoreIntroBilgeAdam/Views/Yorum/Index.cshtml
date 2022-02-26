@@ -4,6 +4,11 @@
     ViewData["Title"] = "Index";
 }
 
+@if (TempData["YorumMesaj"] != null)
+{
+    @TempData["YorumMesaj"]
+}
+
 <h1>Index</h1>
 
 <p>

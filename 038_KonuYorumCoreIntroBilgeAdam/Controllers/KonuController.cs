@@ -94,16 +94,22 @@ namespace _038_KonuYorumCoreIntroBilgeAdam.Controllers
                 ViewBag.Mesaj = "Açıklama en fazla 200 karakter olmalıdır!";
                 return View(konu);
             }
-            _db.Konu.Update(konu);
+
+            // güncelleme ve silme işlemleri için veri önce mutlaka veritabanındaki tablodan çekilmelidir ve sonra çekilen obje üzerinden güncelleme veya silme yapılmalıdır.
+            Konu mevcutKonu = _db.Konu.SingleOrDefault(mevcutKonu => mevcutKonu.Id == konu.Id);
+            mevcutKonu.Baslik = konu.Baslik;
+            mevcutKonu.Aciklama = konu.Aciklama;
+            _db.Konu.Update(mevcutKonu);
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
         public IActionResult Delete(int id)
         {
-            // konu verileriyle birlikte Include kullanarak ilişkili yorum verileri de çekilir
-            // eager loading: ihtiyaca göre yükleme, Entity Framework Core'da kullanılır
-            // lazy loading: entity framework'ün otomatik olarak ilişkili verileri yüklemesi, Include kullanılmasına gerek yoktur
+            // konu verileriyle birlikte Include kullanarak ilişkili yorum verileri de çekilir.
+            // eager loading: ihtiyaca göre yükleme, Entity Framework Core'da kullanılır.
+            // lazy loading: entity framework'ün otomatik olarak ilişkili verileri yüklemesi, Include kullanılmasına gerek yoktur.
+            // güncelleme ve silme işlemleri için veri önce mutlaka veritabanındaki tablodan çekilmelidir ve sonra çekilen obje üzerinden güncelleme veya silme yapılmalıdır.
             Konu konu = _db.Konu.Include(k => k.Yorum).SingleOrDefault(k => k.Id == id);
 
             // 1. yöntem: konu ile birlikte ilişkili yorum kayıtlarının da silinmesi:
