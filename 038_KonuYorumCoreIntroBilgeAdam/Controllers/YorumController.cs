@@ -139,5 +139,11 @@ namespace _038_KonuYorumCoreIntroBilgeAdam.Controllers
             TempData["YorumMesaj"] = "Yorum başarıyla güncellendi.";
             return RedirectToAction("Index");
         }
+
+        public IActionResult Delete(int id)
+        {
+            Yorum yorum = _db.Yorum.Include(yorum => yorum.Konu).SingleOrDefault(yorum => yorum.Id == id);
+            return View(yorum);
+        }
     }
 }
