@@ -19,12 +19,12 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
+                        @*<li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+                        </li>*@
 
                         @* Yukarıdaki menüdeki konu listesini getirmek için Konular bağlantısı (link'i) *@
                         <li class="nav-item">
@@ -46,9 +46,14 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="YorumScaffolding" asp-action="Index">Yorumlar (Scaffolding)</a>
                         </li>
 
-                         @* Yukarıdaki menüdeki konu ile join'lenmiş yorum listesini getirmek için KonularYorumlarJoin bağlantısı (link'i) *@
+                         @* Yukarıdaki menüdeki konu ile inner join'lenmiş yorum listesini getirmek için KonularYorumlarJoin bağlantısı (link'i) *@
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="KonularYorumlarJoin" asp-action="Index">Konular Yorumlar Join</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="KonularYorumlarJoin" asp-action="InnerJoin">Konular Yorumlar Inner Join</a>
+                        </li>
+
+                        @* Yukarıdaki menüdeki konu ile left outer join'lenmiş yorum listesini getirmek için KonularYorumlarJoin bağlantısı (link'i) *@
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="KonularYorumlarJoin" asp-action="LeftOuterJoin">Konular Yorumlar Left Outer Join</a>
                         </li>
 
                     </ul>
